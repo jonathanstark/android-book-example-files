@@ -71,6 +71,12 @@ function refreshEntries() {
                         newEntryRow.appendTo('#date ul');
                         newEntryRow.find('.label').text(row.food);
                         newEntryRow.find('.calories').text(row.calories);
+                        newEntryRow.find('.delete').click(function(){
+                            var clickedEntry = $(this).parent();
+                            var clickedEntryId = clickedEntry.data('entryId');
+                            deleteEntryById(clickedEntryId);
+                            clickedEntry.slideUp();
+                        });
                     }
                 }, 
                 errorHandler
@@ -100,4 +106,12 @@ function createEntry() {
 function errorHandler(transaction, error) {
     alert('Oops. Error was '+error.message+' (Code '+error.code+')');
     return true; 
+}
+function deleteEntryById(id) { 
+    db.transaction(
+        function(transaction) {
+            transaction.executeSql('DELETE FROM entries WHERE id=?;',
+            [id], null, errorHandler); 
+        }
+    ); 
 }
