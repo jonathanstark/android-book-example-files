@@ -21,12 +21,10 @@ body {
     padding: 10px 0;
     text-align: center;
     text-shadow: 0px 1px 1px #fff;
-/*
     max-width: 160px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-*/
 }
 ul {
     list-style: none;
