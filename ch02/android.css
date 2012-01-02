@@ -55,7 +55,6 @@ body {
     -webkit-border-bottom-left-radius: 8px;
     -webkit-border-bottom-right-radius: 8px;
 }
-/*
 #header ul.hide {
     display: none;
 }
@@ -72,6 +71,7 @@ body {
     border-width: 0 8px 0 8px;
     -webkit-border-image: url(images/button.png) 0 8 0 8;
 }
+/*
 #header div.pressed {
     -webkit-border-image: url(images/button_clicked.png) 0 8 0 8;
 }
