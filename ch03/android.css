@@ -76,7 +76,6 @@ ul li a:active, ul li a:hover {
     top: 120px;
     width: 200px;
 }
-/*
 #header div.leftButton {
     font-weight: bold;
     text-align: center;
@@ -97,4 +96,3 @@ ul li a:active, ul li a:hover {
 #header div.leftButton.clicked {
     -webkit-border-image: url(images/back_button_clicked.png) 0 8 0 14;
 }
-*/
