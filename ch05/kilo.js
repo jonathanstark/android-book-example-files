@@ -4,6 +4,13 @@ var jQT = $.jQTouch({
 $(document).ready(function(){
     $('#settings form').submit(saveSettings);
     $('#settings').bind('pageAnimationStart', loadSettings);
+    $('#dates li a').click(function(){
+        var dayOffset = parseInt(this.id);
+        var date = new Date();
+        date.setDate(date.getDate() - dayOffset);
+        sessionStorage.currentDate = date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
+        refreshEntries();
+    });
 });
 function saveSettings() {
     localStorage.age = $('#age').val();
@@ -25,4 +32,8 @@ function loadSettings() {
     $('#age').val(localStorage.age);
     $('#budget').val(localStorage.budget);
     $('#weight').val(localStorage.weight);
+}
+function refreshEntries() {
+    var currentDate = sessionStorage.currentDate;
+    $('#date h1').text(currentDate);
 }
