@@ -1,20 +1,36 @@
-// Branch based on whether device supports touch events
-var tap;
-if(typeof window.ontouchstart == 'undefined') {
-    tap = 'click';
-} else {
-    tap = 'touchend';
-}
-
-// Initialize jQTouch
 var jQT = $.jQTouch({ 
     icon: 'kilo.png'
 }); 
-
-// Int the database var
 var db;
-
-// Define a bunch of functions
+$(document).ready(function(){
+    $('#createEntry form').submit(createEntry);
+    $('#settings form').submit(saveSettings);
+    $('#settings').bind('pageAnimationStart', loadSettings);
+    $('#dates li a').bind('click touchend', function(){
+        var dayOffset = this.id;
+        var date = new Date();
+        date.setDate(date.getDate() - dayOffset);
+        sessionStorage.currentDate = date.getMonth() + 1 + '/' + 
+                                     date.getDate() + '/' + 
+                                     date.getFullYear();
+        refreshEntries();
+    });
+    var shortName = 'Kilo';
+    var version = '1.0';
+    var displayName = 'Kilo';
+    var maxSize = 65536;
+    db = openDatabase(shortName, version, displayName, maxSize);
+    db.transaction(
+        function(transaction) {
+            transaction.executeSql(
+                'CREATE TABLE IF NOT EXISTS entries ' +
+                '  (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ' +
+                '   date DATE NOT NULL, food TEXT NOT NULL, ' +
+                ' calories INTEGER NOT NULL );'
+            );
+        }
+    );
+});
 function saveSettings() {
     localStorage.age = $('#age').val();
     localStorage.budget = $('#budget').val();
@@ -99,34 +115,3 @@ function deleteEntryById(id) {
         }
     ); 
 }
-
-// Let's get this party started!
-$(document).ready(function(){
-    $('#createEntry form').submit(createEntry);
-    $('#settings form').submit(saveSettings);
-    $('#settings').bind('pageAnimationStart', loadSettings);
-    $('#dates li a').bind(tap, function(){
-        var dayOffset = this.id;
-        var date = new Date();
-        date.setDate(date.getDate() - dayOffset);
-        sessionStorage.currentDate = date.getMonth() + 1 + '/' + 
-                                     date.getDate() + '/' + 
-                                     date.getFullYear();
-        refreshEntries();
-    });
-    var shortName = 'Kilo';
-    var version = '1.0';
-    var displayName = 'Kilo';
-    var maxSize = 65536;
-    db = openDatabase(shortName, version, displayName, maxSize);
-    db.transaction(
-        function(transaction) {
-            transaction.executeSql(
-                'CREATE TABLE IF NOT EXISTS entries ' +
-                '  (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ' +
-                '   date DATE NOT NULL, food TEXT NOT NULL, ' +
-                ' calories INTEGER NOT NULL );'
-            );
-        }
-    );
-});
