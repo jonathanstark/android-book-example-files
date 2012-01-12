@@ -7,7 +7,7 @@ $(document).ready(function(){
     $('#createEntry form').submit(createEntry);
     $('#settings form').submit(saveSettings);
     $('#settings').bind('pageAnimationStart', loadSettings);
-    $('#dates li a').click(function() {
+    $('#dates li a').('click touchend', function() {
         var dayOffset = this.id;
         var date = new Date();
         date.setDate(date.getDate() - dayOffset);
