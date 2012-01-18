@@ -7,7 +7,7 @@ $(document).ready(function(){
     $('#createEntry form').submit(createEntry);
     $('#settings form').submit(saveSettings);
     $('#settings').bind('pageAnimationStart', loadSettings);
-    $('#dates li a').('click touchend', function() {
+    $('#dates li a').bind('click touchend', function() {
         var dayOffset = this.id;
         var date = new Date();
         date.setDate(date.getDate() - dayOffset);
@@ -267,9 +267,6 @@ function startWatchingShake() {
     options.frequency = 250;
     sessionStorage.watchId = 
       navigator.accelerometer.watchAcceleration(success, error, options);
-}
-function stopWatchingShake() {
-    navigator.accelerometer.clearWatch(sessionStorage.watchId);
 }
 function stopWatchingShake() {
     navigator.accelerometer.clearWatch(sessionStorage.watchId);
